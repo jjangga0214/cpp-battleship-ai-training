@@ -4,7 +4,9 @@
 #include <iostream>
 #include "Eigen/Dense"
 #include "NeuralNetwork.h"
-#include "../Random.h"
+#include "Random.h"
+#include <string>
+#include <unistd.h>
 using namespace std;
 #ifndef BATTLESHIP_AI_TRAINING_BOARD_H
 #define BATTLESHIP_AI_TRAINING_BOARD_H
@@ -24,7 +26,11 @@ public:
         int size1[5] = {5,4,3,2,2};
         int size_count = 0;
 
-        srand((unsigned int) time(NULL));
+
+        struct timespec ts;
+        clock_gettime(CLOCK_MONOTONIC, &ts);
+        srand((time_t)ts.tv_nsec);
+
         int direction = -1;
         while (1) {
             int left, right;
@@ -80,6 +86,17 @@ public:
                 ++count;
             }
 
+        }
+        return result;
+    }
+
+    Eigen::MatrixXd getMatirx(string option){
+        Eigen::MatrixXd result;
+        if (option=="origin"){
+            result = origin_data_Matrix;
+        }
+        else if(option=="state"){
+            result = state_data_Matrix;
         }
         return result;
     }
