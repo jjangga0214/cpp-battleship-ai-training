@@ -10,20 +10,14 @@
 
 using namespace std;
 
-namespace bts {
-    namespace ai {
-        class Board;
-    }
-}
-
-class bts::ai::Board {
+class Board {
 private:
-    Eigen::MatrixXd origin_data_matrix;
+    Eigen::MatrixXd Origin_data_Matrix;
     Eigen::MatrixXd State_data_Matrix;
     int Origin_data[8][8] = {{0,}};
 public:
     Board()
-            : origin_data_matrix(8, 8), State_data_Matrix(8, 8) {
+            : Origin_data_Matrix(8, 8), State_data_Matrix(8, 8) {
         Make mg;
         int size1[5] = {5, 4, 3, 2, 2};
         int size_count = 0;
@@ -48,45 +42,17 @@ public:
 
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
-                origin_data_matrix(i, j) = Origin_data[i][j];
+                Origin_data_Matrix(i, j) = Origin_data[i][j];
             }
         };
     }
 
     void Display_origin() {
-        cout << origin_data_matrix << endl;
+        cout << Origin_data_Matrix << endl;
     }
 
     void Display_state() {
         cout << State_data_Matrix << endl;
-    }
-
-    Eigen::VectorXd Change_Vector() {
-        Eigen::VectorXd result(64);
-        int count = 0;
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
-                result(count++) = State_data_Matrix(i, j);
-            }
-        }
-        return result;
-    }
-
-    Eigen::VectorXd Calc_Maxtirx() {
-        Eigen::VectorXd result(64);
-        int count = 0;
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
-                if (origin_data_matrix(i, j) == 1) {
-                    if (State_data_Matrix(i, j) == 0) {
-                        result(count) = 1;
-                    }
-                }
-                ++count;
-            }
-
-        }
-        return result;
     }
 
 
