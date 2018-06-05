@@ -56,8 +56,33 @@ public:
         cout << State_data_Matrix << endl;
     }
 
-    void 
+    Eigen::VectorXd Change_Vector(){
+        Eigen::VectorXd result(64);
+        int count=0;
+        for(int i=0; i<8; ++i) {
+            for(int j=0; j<8; ++j) {
+                result(count++) = State_data_Matrix(i,j);
+            }
+        }
+        return result;
+    }
 
+    Eigen::VectorXd Calc_Maxtirx(){
+        Eigen::VectorXd result(64);
+        int count=0;
+        for (int i = 0; i <8 ; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (Origin_data_Matrix(i,j)==1){
+                    if(State_data_Matrix(i,j)==0){
+                        result(count) = 1;
+                    }
+                }
+                ++count;
+            }
+
+        }
+        return result;
+    }
 
 
 };
