@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.3)
+cmake_minimum_required(VERSION 3.10)
 
 # 프로젝트 이름 및 버전
 project(battleship_ai_training)

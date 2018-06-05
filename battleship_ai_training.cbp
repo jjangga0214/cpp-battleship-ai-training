@@ -79,6 +79,9 @@
 		<Unit filename="/home/user/문서/projects/battleship-ai-training/main.cpp">
 			<Option target="battleship_ai_training-0.0.1.out"/>
 		</Unit>
+		<Unit filename="/home/user/문서/projects/battleship-ai-training/src/NeuralNetwork.cpp">
+			<Option target="battleship_ai_training-0.0.1.out"/>
+		</Unit>
 		<Unit filename="/home/user/문서/projects/battleship-ai-training/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

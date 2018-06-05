@@ -1,27 +1,31 @@
 //
 // Created by sonhyeongi on 6/5/18.
 //
+#pragma once
+
 #include <iostream>
 #include "Eigen/Dense"
 #include "NeuralNetwork.h"
 #include "Random.h"
+
 using namespace std;
-#ifndef BATTLESHIP_AI_TRAINING_BOARD_H
-#define BATTLESHIP_AI_TRAINING_BOARD_H
 
+namespace bts {
+    namespace ai {
+        class Board;
+    }
+}
 
-
-class Board{
+class bts::ai::Board {
 private:
-    Eigen::MatrixXd Origin_data_Matrix;
+    Eigen::MatrixXd origin_data_matrix;
     Eigen::MatrixXd State_data_Matrix;
-    int Origin_data[8][8]={{0,}};
+    int Origin_data[8][8] = {{0,}};
 public:
     Board()
-            :Origin_data_Matrix(8,8), State_data_Matrix(8,8)
-    {
+            : origin_data_matrix(8, 8), State_data_Matrix(8, 8) {
         Make mg;
-        int size1[5] = {5,4,3,2,2};
+        int size1[5] = {5, 4, 3, 2, 2};
         int size_count = 0;
 
         srand((unsigned int) time(NULL));
@@ -42,38 +46,39 @@ public:
         }
 
 
-        for(int i=0; i<8; ++i) {
-            for(int j=0; j<8; ++j) {
-                Origin_data_Matrix(i,j) = Origin_data[i][j];
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                origin_data_matrix(i, j) = Origin_data[i][j];
             }
         };
     }
 
-    void Display_origin(){
-        cout << Origin_data_Matrix <<endl;
+    void Display_origin() {
+        cout << origin_data_matrix << endl;
     }
-    void Display_state(){
+
+    void Display_state() {
         cout << State_data_Matrix << endl;
     }
 
-    Eigen::VectorXd Change_Vector(){
+    Eigen::VectorXd Change_Vector() {
         Eigen::VectorXd result(64);
-        int count=0;
-        for(int i=0; i<8; ++i) {
-            for(int j=0; j<8; ++j) {
-                result(count++) = State_data_Matrix(i,j);
+        int count = 0;
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                result(count++) = State_data_Matrix(i, j);
             }
         }
         return result;
     }
 
-    Eigen::VectorXd Calc_Maxtirx(){
+    Eigen::VectorXd Calc_Maxtirx() {
         Eigen::VectorXd result(64);
-        int count=0;
-        for (int i = 0; i <8 ; ++i) {
+        int count = 0;
+        for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
-                if (Origin_data_Matrix(i,j)==1){
-                    if(State_data_Matrix(i,j)==0){
+                if (origin_data_matrix(i, j) == 1) {
+                    if (State_data_Matrix(i, j) == 0) {
                         result(count) = 1;
                     }
                 }
@@ -87,8 +92,3 @@ public:
 
 };
 
-
-
-
-
-#endif //BATTLESHIP_AI_TRAINING_BOARD_H
