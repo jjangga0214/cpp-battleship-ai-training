@@ -23,9 +23,9 @@ public:
 
     virtual Eigen::VectorXd expect(const Eigen::VectorXd &input);
 
-    virtual void backPropagate(const Eigen::VectorXd &guessed, const Eigen::VectorXd &supervising);
+    virtual void backPropagate(const Eigen::VectorXd guessed, const Eigen::VectorXd supervising, double learning_rate =0.5);
 
-    virtual void learn(const Eigen::VectorXd &input, const Eigen::VectorXd &supervising);
+    virtual void learn(const Eigen::VectorXd &input, const Eigen::VectorXd &supervising, double learning_rate = 0.5);
 
     virtual double adjust(double x);
 
@@ -40,4 +40,5 @@ public:
 public:
 // protected: //향후 protected 로 한다.
     std::vector<Eigen::MatrixXd> hiddenLayers;
+    std::vector<Eigen::VectorXd> outputsOnLayers;
 };

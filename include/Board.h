@@ -74,6 +74,8 @@ public:
                 if (origin_data_matrix(i, j) == 1) {
                     if (state_data_matrix(i, j) == 0) {
                         result(count) = 1;
+                    }else{
+                        result(count) = 0;
                     }
                 }
                 ++count;
