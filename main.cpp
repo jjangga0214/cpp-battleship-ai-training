@@ -1,24 +1,40 @@
 #include <iostream>
+#include "Board.h"
 #include "Eigen/Dense"
 #include "NeuralNetwork.h"
+#include "Writefile.h"
+#include <unistd.h>
+
+using namespace std;
+
 
 int main() {
-//    Eigen::MatrixXd m(8, 8);
-//    m(1, 2) = 3.44444444444555599;
-//
-    std::cout << "Hello, World!" << std::endl;
-//    std::cout << m << std::endl;
-//    std::cout << m(1, 2) << std::endl;
 
-    bts::ai::NeuralNetwork nn(4, 4, 2, 4);
-    for (auto w: nn.hiddenLayers) {
-        std::cout << w << std::endl << std::endl;
+    Board board[100];
+
+//    bts::ai::NeuralNetwork neuralNetwork(8,50,5,8);
+//    neuralNetwork.learn(board[0].change_Vector(),board[0].calc_Maxtirx());
+//
+
+
+    for (int i = 0; i <100 ; ++i) {
+        Write(board[i].getMatirx("origin"));
     }
 
-    Eigen::MatrixXd m(2, 2);
-    m << 1, 2, 3, 4;
-    m = m.unaryExpr(&bts::ai::NeuralNetwork::sigmoid);
-    std::cout << m<< std::endl << std::endl;
+
+//    board[0].display_origin();
+//    Write(board[0].getMatirx("origin"));
+//
+//    Eigen::MatrixXd a = Read();
+//    cout << endl;
+//    cout << a << endl;
+//
+
+
+
+
+
+
 
 //    Eigen::VectorXd v(4);
 //    std::cout << v<< std::endl;
