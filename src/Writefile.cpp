@@ -7,9 +7,10 @@
 #include "Writefile.h"
 using namespace std;
 
+std::string filepath = "../output.txt";
 void Write(Eigen::MatrixXd data){
     fstream Instream;
-    Instream.open("/home/sonhyeongi/cpp-battleship-ai-training/output.txt",ios::app);
+    Instream.open(filepath,ios::app);
     if (Instream.fail()){
         cout << "NO File" << endl;
     }
@@ -33,7 +34,7 @@ void Write(Eigen::MatrixXd data){
 Eigen::MatrixXd Read(){
     fstream Instream;
     Eigen::MatrixXd result(8,8);
-    Instream.open("/home/sonhyeongi/cpp-battleship-ai-training/output.txt");
+    Instream.open(filepath);
     if (Instream.fail()){
         cout << "NO File" << endl;
     }

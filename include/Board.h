@@ -1,6 +1,8 @@
 //
 // Created by sonhyeongi on 6/5/18.
 //
+#pragma once
+
 #include <iostream>
 #include "Eigen/Dense"
 #include "NeuralNetwork.h"
@@ -8,9 +10,9 @@
 #include <string>
 #include <unistd.h>
 #include "Random.h"
+
 using namespace std;
-#ifndef BATTLESHIP_AI_TRAINING_BOARD_H
-#define BATTLESHIP_AI_TRAINING_BOARD_H
+
 
 
 class Board {
@@ -19,6 +21,21 @@ private:
     Eigen::MatrixXd state_data_matrix;
     int origin_data[8][8] = {{0,}};
 public:
+
+    void apply(int row, int col) {
+        /**
+         * 건들지 않은 경우 : 0
+         * 성공적으로 격침한 좌표 : 1
+         * 실패한 좌표 : -1
+         */
+        if (origin_data_matrix(row, col) == 1) {
+            state_data_matrix(row, col) = 1;
+        } else {
+            state_data_matrix(row, col) = -1;
+        }
+
+    }
+
     Board() : origin_data_matrix(8, 8), state_data_matrix(8, 8) {
         Make mg;
         int size1[5] = {5, 4, 3, 2, 2};
@@ -27,7 +44,7 @@ public:
 
         struct timespec ts;
         clock_gettime(CLOCK_MONOTONIC, &ts);
-        srand((time_t)ts.tv_nsec);
+        srand((time_t) ts.tv_nsec);
 
         int direction = -1;
         while (1) {
@@ -80,7 +97,7 @@ public:
                 if (origin_data_matrix(i, j) == 1) {
                     if (state_data_matrix(i, j) == 0) {
                         result(count) = 1;
-                    }else{
+                    } else {
                         result(count) = 0;
                     }
                 }
@@ -91,12 +108,11 @@ public:
         return result;
     }
 
-    Eigen::MatrixXd getMatirx(string option){
-        Eigen::MatrixXd result;
-        if (option=="origin"){
+    Eigen::MatrixXd get_matrix(string option) {
+        Eigen::MatrixXd result(8,8);
+        if (option == "origin") {
             result = origin_data_matrix;
-        }
-        else if(option=="state"){
+        } else if (option == "state") {
             result = state_data_matrix;
         }
         return result;
@@ -104,6 +120,3 @@ public:
 
 
 };
-
-
-#endif //BATTLESHIP_AI_TRAINING_BOARD_H

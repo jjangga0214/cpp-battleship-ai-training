@@ -2,7 +2,7 @@
 #include "Board.h"
 #include "Eigen/Dense"
 #include "NeuralNetwork.h"
-#include "Writefile.h"
+
 #include <unistd.h>
 
 using namespace std;
@@ -12,19 +12,29 @@ int main() {
 
     Board board[100];
 
-//    bts::ai::NeuralNetwork neuralNetwork(8,50,5,8);
-//    neuralNetwork.learn(board[0].change_Vector(),board[0].calc_Maxtirx());
+    bts::ai::NeuralNetwork neuralNetwork(64, 8, 8, 64);
+    //neuralNetwork.learn(board[0].change_Vector(), board[0].calc_Maxtirx());
 //
+//    Eigen::VectorXd v(4);
+//    v<< 1,3,5,3;
+//    cout<<v.maxCoeff();
 
+    for (int i = 0; i < 100; ++i) {
+        for (int j = 0; j < 64; ++j) {
+            //Write(board[i].get_matrix("origin"));
+            Eigen::VectorXd guessed = neuralNetwork.learn(board[i].change_vector(), board[i].calc_matrix());
 
-
-    for (int i = 0; i <100 ; ++i) {
-        Write(board[i].getMatirx("origin"));
+            int maxIndex;
+            int maxValue = guessed.maxCoeff(&maxIndex);
+            int row = maxIndex / 8, col = maxIndex % 8;
+            board[i].apply(row, col);
+        }
+        neuralNetwork.stepClear();
     }
 
 
 //    board[0].display_origin();
-//    Write(board[0].getMatirx("origin"));
+//    Write(board[0].get_matrix("origin"));
 //
 //    Eigen::MatrixXd a = Read();
 //    cout << endl;

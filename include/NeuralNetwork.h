@@ -7,6 +7,8 @@
 #include <cmath>
 #include <vector>
 #include "Eigen/Dense"
+#include "Writefile.h"
+#include <list>
 
 namespace bts {
     namespace ai {
@@ -25,7 +27,7 @@ public:
 
     virtual void backPropagate(const Eigen::VectorXd guessed, const Eigen::VectorXd supervising, double learning_rate =0.5);
 
-    virtual void learn(const Eigen::VectorXd &input, const Eigen::VectorXd &supervising, double learning_rate = 0.5);
+    virtual Eigen::VectorXd learn(const Eigen::VectorXd &input, const Eigen::VectorXd &supervising, double learning_rate = 0.5);
 
     virtual double adjust(double x);
 
@@ -36,9 +38,18 @@ public:
     inline static double sigmoidDerivative(double x) {
         return NeuralNetwork::sigmoid(x) * (1 - NeuralNetwork::sigmoid(x));
     }
+    virtual void saveModel();
 
+    virtual void stepClear();
+
+public:
+    const int inputLayerSize;
+    const int hiddenLayersSize;
+    const int howManyHiddenLayers;
+    const int outputLayerSize;
 public:
 // protected: //향후 protected 로 한다.
     std::vector<Eigen::MatrixXd> hiddenLayers;
     std::vector<Eigen::VectorXd> outputsOnLayers;
+
 };
