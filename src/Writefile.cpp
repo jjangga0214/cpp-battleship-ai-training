@@ -5,42 +5,36 @@
 #include <iostream>
 #include <fstream>
 #include "Writefile.h"
+
 using namespace std;
 
 std::string filepath = "../output.txt";
-void Write(Eigen::MatrixXd data){
-    fstream Instream;
-    Instream.open(filepath,ios::app);
-    if (Instream.fail()){
+
+void Write(Eigen::MatrixXd data) {
+    fstream inStream;
+    inStream.open(filepath, ios::app);
+    if (inStream.fail()) {
         cout << "NO File" << endl;
+        return;
     }
-    else{
-        int output;
-        for (int i = 0; i <8 ; ++i) {
-            for (int j = 0; j <8 ; ++j) {
-                output = data(i,j);
-                if (i==7 && j==7){
-                Instream << output ;
-                }
-                else{
-                    Instream << output << " ";
-                }
-            }
+
+    for (int i = 0; i < data.rows(); ++i) {
+        for (int j = 0; j < data.cols(); ++j) {
+            inStream << data(i, j)<<" ";
         }
-        Instream << endl;
     }
+    inStream << endl;
 }
 
-Eigen::MatrixXd Read(){
+Eigen::MatrixXd Read() {
     fstream Instream;
-    Eigen::MatrixXd result(8,8);
+    Eigen::MatrixXd result(8, 8);
     Instream.open(filepath);
-    if (Instream.fail()){
+    if (Instream.fail()) {
         cout << "NO File" << endl;
-    }
-    else{
+    } else {
         int input;
-        for (int i = 0; i <8 ; ++i) {
+        for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 Instream >> input;
                 result(i, j) = input;

@@ -25,19 +25,28 @@ public:
 
     virtual Eigen::VectorXd expect(const Eigen::VectorXd &input);
 
-    virtual void backPropagate(const Eigen::VectorXd guessed, const Eigen::VectorXd supervising, double learning_rate =0.5);
+    virtual void backPropagate(const Eigen::VectorXd guessed, Eigen::VectorXd supervising, double learning_rate = 0.01);
 
-    virtual Eigen::VectorXd learn(const Eigen::VectorXd &input, const Eigen::VectorXd &supervising, double learning_rate = 0.5);
+    virtual Eigen::VectorXd
+    learn(const Eigen::VectorXd &input, const Eigen::VectorXd &supervising, double learning_rate = 0.01);
 
     virtual double adjust(double x);
 
-    inline static double sigmoid(double x) {
+    static double sigmoid(double x) {
+//        if(x<0){
+//            return 0;
+//        } else if(x<10){
+//            return x;
+//        }else{
+//            return x;
+//        }
         return 1.0 / (1.0 + std::exp(x));
     }
 
-    inline static double sigmoidDerivative(double x) {
+    static double sigmoidDerivative(double x) {
         return NeuralNetwork::sigmoid(x) * (1 - NeuralNetwork::sigmoid(x));
     }
+
     virtual void saveModel();
 
     virtual void stepClear();

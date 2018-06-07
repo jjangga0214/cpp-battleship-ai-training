@@ -16,7 +16,8 @@ SET( SRC src)
 
 SET ( SRC_FILES
         main.cpp
-        ${SRC}/NeuralNetwork.cpp ${SRC}/Writefile.cpp )
+        ${SRC}/NeuralNetwork.cpp
+        ${SRC}/Writefile.cpp )
 
 # 공통 컴파일러
 #SET ( CMAKE_C_COMPILER "<컴파일러>" )

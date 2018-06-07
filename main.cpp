@@ -10,17 +10,21 @@ using namespace std;
 
 int main() {
 
-    Board board[100];
+    int TOTAL_BOARDS_COUNT = 1000;
+    int BOARD_SIZE = 8;
+    Board* board =  new Board[TOTAL_BOARDS_COUNT];
 
-    bts::ai::NeuralNetwork neuralNetwork(64, 8, 8, 64);
+    bts::ai::NeuralNetwork neuralNetwork(BOARD_SIZE * BOARD_SIZE, 64, 10, BOARD_SIZE * BOARD_SIZE);
+    //neuralNetwork.saveModel();
     //neuralNetwork.learn(board[0].change_Vector(), board[0].calc_Maxtirx());
 //
 //    Eigen::VectorXd v(4);
 //    v<< 1,3,5,3;
 //    cout<<v.maxCoeff();
 
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < TOTAL_BOARDS_COUNT; ++i) {
         for (int j = 0; j < 64; ++j) {
+            cout << i << endl;
             //Write(board[i].get_matrix("origin"));
             Eigen::VectorXd guessed = neuralNetwork.learn(board[i].change_vector(), board[i].calc_matrix());
 
@@ -31,6 +35,7 @@ int main() {
         }
         neuralNetwork.stepClear();
     }
+    neuralNetwork.saveModel();
 
 
 //    board[0].display_origin();
